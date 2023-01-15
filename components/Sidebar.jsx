@@ -9,6 +9,7 @@ const Sidebar = () => {
 				<div>
 					<button className="text-2xl">
 						<FiMenu />
+						<span>Menu</span>
 					</button>
 				</div>
 				<div className="relative w-full flex items-center">
