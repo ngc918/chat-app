@@ -4,7 +4,7 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-	apiKey: `${process.env.FIREBASE_KEY}`,
+	apiKey: "AIzaSyDK_-xHD57M375plPaziS8Up6mBr-dI3eE",
 	authDomain: "chat-app-82fa9.firebaseapp.com",
 	projectId: "chat-app-82fa9",
 	storageBucket: "chat-app-82fa9.appspot.com",
