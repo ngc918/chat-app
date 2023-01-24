@@ -4,9 +4,21 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
 import DefaultImage from "../public/images/default.png";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase/init";
+import { signOut } from "firebase/auth";
+
+import Card from "../components/Card";
 
 const Sidebar = () => {
 	const [search, setSearch] = useState("");
+	const [user, loading] = useAuthState(auth);
+	console.log(user);
+
+	const logout = async () => {
+		await signOut(auth);
+	};
+
 	return (
 		<div className="w-[450px] h-screen p-5 bg-[#272727]">
 			<div className="flex items-center w-full space-x-4">
@@ -16,7 +28,7 @@ const Sidebar = () => {
 						<div className="w-[300px] rounded-b-xl rounded-tr-xl absolute bg-[#4f4f4f92] flex flex-col justify-center items-center p-5 top-16 left-12 backdrop-blur-sm -z-[1] opacity-0 group-focus:z-[1] group-focus:opacity-100">
 							<div className="w-[100px] h-[100px] overflow-hidden border rounded-full">
 								<Image
-									src={DefaultImage}
+									src={user?.photoURL}
 									alt="profile image"
 									width={100}
 									height={100}
@@ -25,10 +37,13 @@ const Sidebar = () => {
 								/>
 							</div>
 							<div className="w-full">
-								<h1 className="text-xl my-2">Barry Allen</h1>
-								<button className="text-xl bg-[#fff] w-full text-black py-1 rouned-md hover:bg-[#92929275] transition-colors hover:text-white">
+								<h1 className="text-xl my-2">{user?.displayName}</h1>
+								<div
+									className="text-xl bg-[#fff] w-full text-black py-1 rounded-md hover:bg-[#92929275] transition-colors hover:text-white cursor-pointer"
+									onClick={logout}
+								>
 									Logout
-								</button>
+								</div>
 							</div>
 						</div>
 					</button>
@@ -57,6 +72,15 @@ const Sidebar = () => {
 						</button>
 					)}
 				</div>
+			</div>
+			<div
+				className={
+					search.length > 0
+						? "w-full h-screen overflow-y-auto mt-5 transition-all"
+						: "w-full h-0 overflow-y-auto mt-5 transition-all"
+				}
+			>
+				<Card />
 			</div>
 		</div>
 	);
