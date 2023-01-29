@@ -16,12 +16,16 @@ function MyApp({ Component, pageProps }) {
 				e || window.event
 			).returnValue = confirmationMessage);
 			if (user) {
-				setDoc(doc(db, "users", user?.uid), {
-					name: user?.displayName,
-					email: user?.email,
-					imageURL: user?.photoURL,
-					online: false,
-				});
+				setDoc(
+					doc(db, "users", user?.uid),
+					{
+						name: user?.displayName,
+						email: user?.email,
+						imageURL: user?.photoURL,
+						online: false,
+					},
+					{ merge: true }
+				);
 			}
 		});
 		if (user) {
