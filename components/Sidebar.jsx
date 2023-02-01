@@ -5,10 +5,11 @@ import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
 import DefaultImage from "../public/images/default.png";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase/init";
+import { auth, db } from "../firebase/init";
 import { signOut } from "firebase/auth";
-
 import Card from "../components/Card";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 const Sidebar = () => {
 	const [search, setSearch] = useState("");
@@ -17,7 +18,23 @@ const Sidebar = () => {
 
 	const logout = async () => {
 		await signOut(auth);
+		if (user) {
+			setDoc(
+				doc(db, "users", user?.uid),
+				{
+					name: user?.displayName,
+					email: user?.email,
+					imageURL: user?.photoURL,
+					online: false,
+				},
+				{ merge: true }
+			);
+		}
 	};
+
+	const usersRef = collection(db, "users");
+	const [userSnapShot, loading2] = useCollection(usersRef);
+	console.log(userSnapShot?.docs);
 
 	return (
 		<div className="w-[450px] h-screen p-5 bg-[#272727]">
