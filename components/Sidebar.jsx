@@ -59,7 +59,7 @@ const Sidebar = () => {
 									className="text-xl bg-[#fff] w-full text-black py-1 rounded-md hover:bg-[#92929275] transition-colors hover:text-white cursor-pointer"
 									onClick={logout}
 								>
-									Logout
+									Logout!
 								</div>
 							</div>
 						</div>
