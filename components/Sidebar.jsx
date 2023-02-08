@@ -10,6 +10,7 @@ import { signOut } from "firebase/auth";
 import Card from "../components/Card";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
+import CardLoader from "../components/CardLoader";
 
 const Sidebar = () => {
 	const [search, setSearch] = useState("");
@@ -34,7 +35,7 @@ const Sidebar = () => {
 
 	const usersRef = collection(db, "users");
 	const [userSnapShot, loading2] = useCollection(usersRef);
-	console.log(userSnapShot?.docs);
+	console.log(userSnapShot?.docs[0]?.data);
 
 	return (
 		<div className="w-[450px] h-screen p-5 bg-[#272727]">
@@ -97,7 +98,23 @@ const Sidebar = () => {
 						: "w-full h-0 overflow-y-auto mt-5 transition-all"
 				}
 			>
-				<Card />
+				{!loading2 ? (
+					userSnapShot?.docs?.map((item) => {
+						return (
+							<Card
+								key={item.id}
+								name={item.data().name}
+								imageURL={item.data().imageURL}
+							/>
+						);
+					})
+				) : (
+					<div>
+						<CardLoader />
+						<CardLoader />
+						<CardLoader />
+					</div>
+				)}
 			</div>
 		</div>
 	);
