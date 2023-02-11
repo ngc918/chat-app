@@ -5,7 +5,7 @@ import DefaultImage from "../public/images/default.png";
 const Card = ({ name, imageURL }) => {
 	return (
 		<div className="w-full flex items-center py-3 px-5 border rounded-xl border-[#2b2b2b] space-x-6 cursor-pointer hover:bg-[#1d1d1d]">
-			<div className="border rounded-full w-[60px] h-[60px] overflow-hidden">
+			<div className="rounded-full w-[60px] h-[60px] overflow-hidden">
 				<Image
 					src={imageURL}
 					alt=""

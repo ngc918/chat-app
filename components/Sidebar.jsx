@@ -98,26 +98,27 @@ const Sidebar = () => {
 						: "w-full h-0 overflow-y-auto mt-5 transition-all"
 				}
 			>
-				{!loading2 ? (
+				{!loading2 ? 
 					userSnapShot?.docs?.map((item) => {
-						return (
-							<Card
-								key={item.id}
-								name={item.data().name}
-								imageURL={item.data().imageURL}
-							/>
-						);
-					})
-				) : (
+						if (item.data().name.toLowerCase().includes(search.toLowerCase()) && item.data().name !== user?.displayName) {
+							return (
+								<Card
+									key={item.id}
+									name={item.data().name}
+									imageURL={item.data().imageURL}
+								/>
+						)
+					}
+				})
 					<div>
 						<CardLoader />
 						<CardLoader />
 						<CardLoader />
 					</div>
-				)}
+				}
 			</div>
 		</div>
-	);
-};
+	)
+}
 
 export default Sidebar;
