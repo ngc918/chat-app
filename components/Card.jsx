@@ -23,6 +23,7 @@ const Card = ({ name, imageURL }) => {
 				/>
 			</div>
 			<span>{name.Card}</span>
+			<p>Hi</p>
 		</div>
 	);
 };
